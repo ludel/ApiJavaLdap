@@ -17,14 +17,9 @@ public class Main {
         String serverName = "serveurFirst";
         String domainName = "OLfilrouge.domaine";
 
-        LDAP ldap = new LDAP(userName, domainName, password, serverName);
-
-        NamingEnumeration<?> allUser = ldap.getCustomAttrs("CN=Users, DC=OLfilrouge, DC=domaine", "(objectclass=User)");
-        CollUsers collUsers = new CollUsers();
-        while (allUser.hasMore()) {
-            SearchResult result = (SearchResult) allUser.next();
-            collUsers.add(new User(result.getAttributes(), "test"));
-        }
+        CollUsers collUsers = new CollUsers(userName, password,serverName, domainName);
+        System.out.println(collUsers.getCurrentUser());
+        collUsers.suivant();
         System.out.println(collUsers.getCurrentUser());
 
         /*NamingEnumeration<?> allGroup = ldap.getCustomAttrs("DC=OLfilrouge, DC=domaine", "(objectclass=Group)");

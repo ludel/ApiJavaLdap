@@ -1,4 +1,5 @@
 package engine;
+
 import java.util.Hashtable;
 import javax.naming.CommunicationException;
 import javax.naming.Context;
@@ -23,16 +24,16 @@ public class LDAP {
         this.password = password;
         this.serverName = serverName;
 
-        Hashtable infos = new Hashtable();
-        infos.put(Context.SECURITY_AUTHENTICATION, "simple");
-        infos.put(Context.SECURITY_PRINCIPAL, userName + "@" + domainName);
-        infos.put(Context.SECURITY_CREDENTIALS, password);
-        infos.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
-        infos.put(Context.PROVIDER_URL, "ldap://" + serverName + "." + domainName + "/");
+        Hashtable hash = new Hashtable();
+        hash.put(Context.SECURITY_AUTHENTICATION, "simple");
+        hash.put(Context.SECURITY_PRINCIPAL, userName + "@" + domainName);
+        hash.put(Context.SECURITY_CREDENTIALS, password);
+        hash.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
+        hash.put(Context.PROVIDER_URL, "ldap://" + serverName + "." + domainName + "/");
 
 
         try {
-            ctx = new InitialLdapContext(infos, null);
+            ctx = new InitialLdapContext(hash, null);
         } catch (CommunicationException e) {
             System.out.println("Erreur de connexion au serveur : " + serverName);
         } catch (NamingException e) {

@@ -2,14 +2,12 @@ package beans;
 
 import javax.naming.directory.Attributes;
 
-public class User {
+public class Data {
 
     private Attributes attributes;
-    private String token;
 
-    public User(Attributes attributes, String token) {
+    Data(Attributes attributes) {
         this.attributes = attributes;
-        this.token = token;
     }
 
     public Attributes getAttributes() {
@@ -20,19 +18,10 @@ public class User {
         this.attributes = attributes;
     }
 
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
-    }
-
     @Override
     public String toString() {
-        return "User{" +
+        return "Data{" +
                 "attributes=" + attributes +
-                ", token='" + token + '\'' +
                 '}';
     }
 }

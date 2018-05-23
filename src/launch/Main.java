@@ -1,13 +1,8 @@
 package launch;
 
-import beans.User;
-import engine.LDAP;
-import beans.CollUsers;
+import beans.CollData;
 
-import javax.naming.NamingEnumeration;
 import javax.naming.NamingException;
-import javax.naming.directory.Attribute;
-import javax.naming.directory.SearchResult;
 
 
 public class Main {
@@ -17,32 +12,20 @@ public class Main {
         String serverName = "serveurFirst";
         String domainName = "OLfilrouge.domaine";
 
-        CollUsers collUsers = new CollUsers(userName, password,serverName, domainName);
-        System.out.println(collUsers.getCurrentUser());
-        collUsers.suivant();
-        System.out.println(collUsers.getCurrentUser());
+        CollData users = new CollData(userName, password, serverName, domainName, "(&(objectCategory=person)(objectClass=user))");
+        System.out.println(users.getCurrentData());
+        users.next();
+        System.out.println(users.getCurrentData());
 
-        /*NamingEnumeration<?> allGroup = ldap.getCustomAttrs("DC=OLfilrouge, DC=domaine", "(objectclass=Group)");
-        while (allGroup.hasMore()) {
-            SearchResult result = (SearchResult) allGroup.next();
-            NamingEnumeration<? extends Attribute> enumAttributes = result.getAttributes().getAll();
-            while (enumAttributes.hasMore()) {
-                Attribute item = enumAttributes.next();
-                System.out.println("- "+item);
-            }
-            System.out.println("============================================");
-        }
+        CollData groups = new CollData(userName, password, serverName, domainName, "(objectClass=group)");
+        System.out.println(groups.getCurrentData());
+        groups.next();
+        System.out.println(groups.getCurrentData());
 
+        CollData orgUnits = new CollData(userName, password, serverName, domainName, "(objectCategory=organizationalUnit)");
+        System.out.println(orgUnits.getCurrentData());
+        orgUnits.next();
+        System.out.println(orgUnits.getCurrentData());
 
-        NamingEnumeration<?> allOrg = ldap.getCustomAttrs("DC=OLfilrouge, DC=domaine", "(objectclass=organizationalPerson)");
-        while (allOrg.hasMore()) {
-            SearchResult result = (SearchResult) allOrg.next();
-            NamingEnumeration<? extends Attribute> enumAttributes = result.getAttributes().getAll();
-            while (enumAttributes.hasMore()) {
-                Attribute item = enumAttributes.next();
-                System.out.println("- "+item);
-            }
-            System.out.println("============================================");
-        }*/
     }
 }

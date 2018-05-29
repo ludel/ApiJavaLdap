@@ -18,7 +18,7 @@ public class LDAP {
     private LdapContext ctx = null;
 
 
-    public LDAP(String userName, String domainName, String password, String serverName) {
+    public LDAP(String userName, String password, String serverName, String domainName) {
         this.userName = userName;
         this.domainName = domainName;
         this.password = password;
@@ -35,7 +35,7 @@ public class LDAP {
         try {
             ctx = new InitialLdapContext(hash, null);
         } catch (CommunicationException e) {
-            System.out.println("Erreur de connexion au serveur : " + serverName);
+            System.out.println("Erreur de connexion au serveur : " + serverName + "." + domainName + "/");
         } catch (NamingException e) {
             System.out.println("Impossible d'authentifier l'utilisateur : " + userName);
         }

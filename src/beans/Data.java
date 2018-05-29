@@ -10,18 +10,18 @@ public class Data {
         this.attributes = attributes;
     }
 
-    public Attributes getAttributes() {
-        return attributes;
+    public String getName() {
+        return String.valueOf(this.attributes.get("name"));
     }
 
-    public void setAttributes(Attributes attributes) {
-        this.attributes = attributes;
+    public String getDescription() {
+        return String.valueOf(this.attributes.get("description"));
     }
+
 
     @Override
     public String toString() {
-        return "Data{" +
-                "attributes=" + attributes +
-                '}';
+        return "All Atributes : " + attributes;
+
     }
 }

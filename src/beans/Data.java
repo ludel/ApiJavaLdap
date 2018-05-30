@@ -10,14 +10,9 @@ public class Data {
         this.attributes = attributes;
     }
 
-    public String getName() {
-        return String.valueOf(this.attributes.get("name"));
+    public String getSpecificAttribute(String key) {
+        return String.valueOf(this.attributes.get(key));
     }
-
-    public String getDescription() {
-        return String.valueOf(this.attributes.get("description"));
-    }
-
 
     @Override
     public String toString() {

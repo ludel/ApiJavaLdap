@@ -4,7 +4,7 @@ import engine.LDAP;
 
 import javax.naming.NamingEnumeration;
 import javax.naming.NamingException;
-import javax.naming.directory.SearchResult;
+import javax.naming.directory.*;
 import java.util.ArrayList;
 
 public class CollData extends ArrayList<Data> {
@@ -25,16 +25,6 @@ public class CollData extends ArrayList<Data> {
         return this.get(cursor);
     }
 
-    public void next() {
-        if (this.cursor < this.size() - 1) {
-            this.cursor++;
-        }
-    }
-
-    public void before() {
-        this.cursor--;
-    }
-
     public Boolean hasMore() {
         this.cursor++;
         Boolean ret = true;
@@ -43,20 +33,28 @@ public class CollData extends ArrayList<Data> {
         } catch (IndexOutOfBoundsException e) {
             ret = false;
         }
-
-
         return ret;
     }
 
-    public Data searchDataByName(String query) {
+    public Data searchDataByAttribute(String keyAttribute,String query) {
         Data res = null;
         for (Data data : this) {
-            if (data.getName().contains(query)) {
+            if (data.getSpecificAttribute(keyAttribute).contains(query)) {
                 res = data;
             }
         }
 
         return res;
+    }
+
+    public void next() {
+        if (this.cursor < this.size() - 1) {
+            this.cursor++;
+        }
+    }
+
+    public void before() {
+        this.cursor--;
     }
 
 

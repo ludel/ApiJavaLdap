@@ -1,6 +1,7 @@
 package engine;
 
 import java.util.Hashtable;
+import java.util.Map;
 import javax.naming.CommunicationException;
 import javax.naming.Context;
 import javax.naming.NamingEnumeration;
@@ -54,5 +55,21 @@ public class LDAP {
         }
 
         return namingEnum;
+    }
+
+    public void modification(String query, Map<String, String> map) {
+        int i = 0;
+        ModificationItem[] mods = new ModificationItem[map.size()];
+        for (Map.Entry<String, String> entry : map.entrySet()) {
+            Attribute attr = new BasicAttribute(entry.getKey(), entry.getValue());
+            mods[i] = new ModificationItem(DirContext.REPLACE_ATTRIBUTE, attr);
+            try {
+                ctx.modifyAttributes(query, mods);
+            } catch (NamingException e) {
+                System.out.println("Error lors de la modification");
+                e.printStackTrace();
+            }
+            i++;
+        }
     }
 }

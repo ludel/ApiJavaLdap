@@ -16,8 +16,7 @@ public class Main {
         CollData users = new CollData(userName, password, serverName, domainName, "(&(objectCategory=person)(objectClass=user))");
 
         while (users.hasMore()){
-            System.out.println(users.getCurrentData().getDescription());
-
+            System.out.println(users.getCurrentData().getSpecificAttribute("name"));
         }
 
 
